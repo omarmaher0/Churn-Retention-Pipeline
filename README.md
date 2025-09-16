@@ -4,17 +4,17 @@ The pipeline covers data generation, orchestration, processing, storage, and vis
 
 ## 📚 Contents
 
-📌 Business Case
-📁 Data Source
-🧰 Tools and Technologies Used
-🧱 Data Pipeline Architecture
-🗄️ OLTP Database Description
-📊 OLAP Dimensional Modeling (DWH)
-⚙️ ETL and Data Flow
-🧪 Data Validation and Quality
-📈 Dashboards and Reports
-🚀 How to Run the Project
-✅ Future Improvements
+1. 📌 Business Case
+2. 📁 Data Source
+3. 🧰 Tools and Technologies Used
+4. 🧱 Data Pipeline Architecture
+5. 🗄️ OLTP Database Description
+6. 📊 OLAP Dimensional Modeling (DWH)
+7. ⚙️ ETL and Data Flow
+8. 🧪 Data Validation and Quality
+9. 📈 Dashboards and Reports
+10. 🚀 How to Run the Project
+11. ✅ Future Improvements
 
 ## 1. 📌 Business Case
 
