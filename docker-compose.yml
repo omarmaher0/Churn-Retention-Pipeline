@@ -1,0 +1,146 @@
+version: "3.9"
+
+services:
+
+  # -------------------- HDFS --------------------
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    container_name: namenode
+    restart: always
+    ports:
+      - "9870:9870"  # NameNode Web UI
+      - "9000:9000"  # HDFS service
+    environment:
+      - CLUSTER_NAME=hdfs-cluster
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:9000
+      - HDFS_CONF_dfs_webhdfs_enabled=true
+
+    volumes:
+      - ./hdfs/namenode:/hadoop/dfs/name
+    networks:
+      - hadoop-net
+
+  datanode:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode
+    restart: always
+    ports:
+      - "9864:9864"  # DataNode Web UI
+    environment:
+      - CLUSTER_NAME=hdfs-cluster
+      - CORE_CONF_fs_defaultFS=hdfs://namenode:9000
+      - HDFS_CONF_dfs_webhdfs_enabled=true
+
+    volumes:
+      - ./hdfs/datanode:/hadoop/dfs/data
+    depends_on:
+      - namenode
+    networks:
+      - hadoop-net
+
+  # -------------------- Jupyter + Spark --------------------
+  jupyter:
+    image: jupyter/pyspark-notebook:latest
+    container_name: jupyter
+    ports:
+      - "8888:8888"
+    environment:
+      - PYSPARK_PYTHON=python3
+      - SPARK_MASTER=spark://spark:7077
+    volumes:
+      - ./notebooks:/home/jovyan/work
+      - ./jars/postgresql-42.6.0.jar:/usr/local/spark/jars/postgresql-42.6.0.jar
+      - ./local_dw:/home/jovyan/local_dw   
+
+
+    depends_on:
+      - namenode
+    networks:
+      - hadoop-net
+    command: >
+      start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''
+
+
+  # -------------------- Airflow Webserver --------------------
+
+  airflow-webserver:
+    image: apache/airflow:2.7.1
+    container_name: airflow-webserver
+    restart: always
+    ports:
+      - "8089:8080"
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__FERNET_KEY=hjl30_C10jcyQQacSZmjT4Ea_G9AbbksJKQdt_zuTDI=
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+      - AIRFLOW__CORE__LOAD_EXAMPLES=false
+      - AIRFLOW__WEBSERVER__SECRET_KEY=d93e8119-fa90-48a3-81e7-f3381da7a97c
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
+      - ./logs:/opt/airflow/logs       # <--- مهم
+      - ./plugins:/opt/airflow/plugins # <--- مهم
+      - /etc/localtime:/etc/localtime:ro
+      - ./requirements.txt:/requirements.txt
+    command: >
+      bash -c "pip install -r /requirements.txt &&
+               airflow db init &&
+               airflow users create --username admin --password admin --firstname Air --lastname Flow --role Admin --email admin@example.com &&
+               airflow webserver"
+    depends_on:
+      - postgres
+    networks:
+      - hadoop-net
+
+  airflow-scheduler:
+    image: apache/airflow:2.7.1
+    container_name: airflow-scheduler
+    restart: always
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__FERNET_KEY=hjl30_C10jcyQQacSZmjT4Ea_G9AbbksJKQdt_zuTDI=
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__WEBSERVER__SECRET_KEY=d93e8119-fa90-48a3-81e7-f3381da7a97c   # <--- أضف ده
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - ./requirements.txt:/requirements.txt
+      - /etc/localtime:/etc/localtime:ro
+    command: >
+      bash -c "pip install --user -r /requirements.txt &&
+               airflow scheduler"
+    depends_on:
+      - postgres
+    networks:
+      - hadoop-net
+
+
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+    networks:
+      - hadoop-net
+
+networks:
+  hadoop-net:
+    driver: bridge
+
+volumes:
+  postgres-db-volume:
+  namenode-data:
+  datanode-data:
