@@ -23,9 +23,8 @@ Identify customers at risk of leaving and understand retention patterns to impro
 
 ## 2. 📁 Data Source
 
-Original dataset: Telco Customer Churn Dataset
- from Hugging Face.
-Synthetic data generated using Faker library to expand the dataset size for more realistic scenarios.
+1. Original dataset: Telco Customer Churn Dataset from Hugging Face.
+2. Synthetic data generated using Faker library to expand the dataset size for more realistic scenarios.
 
 ## 3. 🧰 Tools and Technologies Used
 
@@ -53,12 +52,6 @@ All other tables are linked to customer_id
 
 ## 6. 📊 OLAP Dimensional Modeling (DWH)
 
-Star Schema design for churn analysis:
-Fact Table: fact_churn
-Dimension Tables: dim_customer, dim_subscription, dim_time
-Supports analysis of:
-Churn rate by age, gender, and city
-Average customer usage over time
 
 !['DWH Architecture'](./Images/Churn_DWH_Diagram.png)
 
