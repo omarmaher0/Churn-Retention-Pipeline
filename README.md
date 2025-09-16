@@ -1,4 +1,4 @@
-# 📉📈 Churn-Retention-Pipeline
+# 📉📈 Churn Retention Pipeline
 This project demonstrates a complete ETL pipeline for analyzing Telco Customer Churn.
 The pipeline covers data generation, orchestration, processing, storage, and visualization, showcasing a full Data Engineering workflow from raw data to actionable insights.
 
