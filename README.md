@@ -58,12 +58,12 @@ All other tables are linked to customer_id
 
 ## 7. ⚙️ ETL and Data Flow
 
-Data Ingestion: fetch original dataset + synthetic Faker data
-Orchestration: Airflow DAGs to manage ETL workflow
-Storage: save raw and processed data in HDFS
-Transformation: clean, transform, and prepare data using Spark
-Load: store transformed data in SQL Server (DWH)
-Visualization: create dashboards in Power BI
+1. 📥 Data Ingestion: Fetch the original dataset from Hugging Face and generate synthetic data using Faker
+2. 🛠️ Orchestration: Use Airflow DAGs to manage the ETL workflow
+3. 🗄️ Storage: Save raw and processed data in HDFS
+4. 🔄 Transformation: Clean, transform, and prepare data using Apache Spark
+5. 💾 Load: Store transformed data into SQL Server (DWH)
+6. 📊 Visualization: Create interactive dashboards in Power BI
 
 ## 8. 🧪 Data Validation and Quality
 
