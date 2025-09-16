@@ -28,12 +28,12 @@ Identify customers at risk of leaving and understand retention patterns to impro
 
 ## 3. 🧰 Tools and Technologies Used
 
-Airflow: workflow orchestration & scheduling
-HDFS: data storage for raw and processed data
-Apache Spark: data processing & transformations
-SQL Server (SSMS): OLTP & DWH storage
-Power BI: visualization and reporting
-Python Libraries: pandas, faker, datasets
+1. Airflow: workflow orchestration & scheduling
+2. HDFS: data storage for raw and processed data
+3. Apache Spark: data processing & transformations
+4. SQL Server (SSMS): OLTP & DWH storage
+5. Power BI: visualization and reporting
+6. Python Libraries: pandas, faker, datasets
 
 ## 4. 🧱 Data Pipeline Architecture
 
