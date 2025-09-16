@@ -92,20 +92,24 @@ Customers at risk of leaving
 10. 🚀 How to Run the Project
 
 Clone the repository
+```bash
 git clone https://github.com/omarmaher0/Churn-Retention-Pipeline
 cd Telco-Customer-Churn-ETL-Pipeline
+```
 
 Install requirements
+```powershell
 
 pip install -r requirements.txt
-
+```
 
 Set up and run Airflow
+```powershell
 
 airflow db init
 airflow webserver -p 8080
 airflow scheduler
-
+```
 
 Run ETL DAG via Airflow UI
 Verify data in HDFS → Spark → SQL Server
