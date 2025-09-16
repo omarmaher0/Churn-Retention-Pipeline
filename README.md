@@ -1,102 +1,119 @@
 # Churn-Retention-Pipeline
-📝 Project Overview
-
 This project demonstrates a complete ETL pipeline for analyzing Telco Customer Churn.
 The pipeline covers data generation, orchestration, processing, storage, and visualization, showcasing a full Data Engineering workflow from raw data to actionable insights.
 
-Pipeline Summary:
+## 📚 Contents
 
-Data Source: Original Telco Customer Churn dataset from Hugging Face
-.
+📌 Business Case
+📁 Data Source
+🧰 Tools and Technologies Used
+🧱 Data Pipeline Architecture
+🗄️ OLTP Database Description
+📊 OLAP Dimensional Modeling (DWH)
+⚙️ ETL and Data Flow
+🧪 Data Validation and Quality
+📈 Dashboards and Reports
+🚀 How to Run the Project
+✅ Future Improvements
 
-Synthetic Data Generation: Extended the dataset using Faker library to simulate additional customer records.
+## 1. 📌 Business Case
 
-Orchestration: Managed the workflow using Apache Airflow.
+The project aims to analyze customer churn in the telecommunications sector.
+Identify customers at risk of leaving and understand retention patterns to improve marketing strategies and customer service.
 
-Data Storage: Raw and processed data stored in HDFS.
+## 2. 📁 Data Source
 
-Data Transformation: Performed transformations using Apache Spark.
+Original dataset: Telco Customer Churn Dataset
+ from Hugging Face.
+Synthetic data generated using Faker library to expand the dataset size for more realistic scenarios.
 
-Data Warehouse: Transformed data loaded into SQL Server (SSMS) for analytics.
+## 3. 🧰 Tools and Technologies Used
 
-Visualization: Built interactive dashboards using Power BI to track churn metrics and customer retention.
+Airflow: workflow orchestration & scheduling
+HDFS: data storage for raw and processed data
+Apache Spark: data processing & transformations
+SQL Server (SSMS): OLTP & DWH storage
+Power BI: visualization and reporting
+Python Libraries: pandas, faker, datasets
 
-⚙️ Tools & Technologies
-
-Data Source: Hugging Face Datasets (aai510-group1/telco-customer-churn)
-
-Synthetic Data Generation: Python Faker
-
-Workflow Orchestration: Apache Airflow
-
-Big Data Storage: HDFS (Hadoop Distributed File System)
-
-Data Processing & Transformation: Apache Spark
-
-Data Warehouse: Microsoft SQL Server (SSMS)
-
-Visualization & Reporting: Power BI
-
-📊 Pipeline Flow Diagram
-Hugging Face Dataset  -->  Faker (synthetic data generation)
-           │
-           ▼
-       Airflow (Orchestration)
-           │
-           ▼
-         HDFS (Raw & Processed Data)
-           │
-           ▼
-      Apache Spark (Transformations)
-           │
-           ▼
-        SQL Server (DWH)
-           │
-           ▼
-       Power BI Dashboard
-
-🔹 Key Features
-
-Automated ETL pipeline with Airflow DAGs.
-
-Scalable and fault-tolerant HDFS storage.
-
-Distributed data transformations using Spark.
-
-Integration with SQL Server for analytics and reporting.
-
-Interactive Power BI dashboard for churn & retention insights.
-
-📥 How to Run
-
-Clone the repo
-
-git clone <your-repo-link>
-cd telco-churn-etl
+## 4. 🧱 Data Pipeline Architecture
 
 
-Install dependencies
+!['Data Pipeline Architecture.png'](./Images/Pipeline.jpg)
 
-pip install datasets faker pyspark
+##5. 🗄️ OLTP Database Description
+Tables for Raw/Transactional Data:
+customer
+subscription
+usage
+
+Primary Keys & Relationships:
+customer_id as primary key in the main table
+All other tables are linked to customer_id
+
+## 6. 📊 OLAP Dimensional Modeling (DWH)
+
+Star Schema design for churn analysis:
+Fact Table: fact_churn
+Dimension Tables: dim_customer, dim_subscription, dim_time
+Supports analysis of:
+Churn rate by age, gender, and city
+Average customer usage over time
+
+!['DWH Architecture'](./Images/Churn_DWH_Diagram.png)
 
 
-Start Airflow
+7. ⚙️ ETL and Data Flow
+
+Data Ingestion: fetch original dataset + synthetic Faker data
+Orchestration: Airflow DAGs to manage ETL workflow
+Storage: save raw and processed data in HDFS
+Transformation: clean, transform, and prepare data using Spark
+Load: store transformed data in SQL Server (DWH)
+Visualization: create dashboards in Power BI
+
+8. 🧪 Data Validation and Quality
+
+Ensure no missing values
+Validate data types for all columns
+Enforce referential integrity between tables
+
+9. 📈 Dashboards and Reports
+
+Power BI dashboards show:
+Monthly churn rate
+Geographical distribution of churn
+Churn trends by plan and customer demographics
+Customers at risk of leaving
+
+!['Dashboard'](./Images/Dashboard.jpg)
+
+
+10. 🚀 How to Run the Project
+
+Clone the repository
+git clone https://github.com/omarmaher0/Churn-Retention-Pipeline
+cd Telco-Customer-Churn-ETL-Pipeline
+
+Install requirements
+
+pip install -r requirements.txt
+
+
+Set up and run Airflow
 
 airflow db init
 airflow webserver -p 8080
 airflow scheduler
 
 
-Run ETL pipeline via Airflow DAG.
+Run ETL DAG via Airflow UI
+Verify data in HDFS → Spark → SQL Server
+Open Power BI and connect to SQL Server to visualize dashboards
 
-Access processed data in HDFS, Spark, or SQL Server.
+11. ✅ Future Improvements
 
-Open Power BI and connect to SQL Server to visualize metrics.
-
-🔹 Optional Enhancements
-
-Add Kafka as streaming source for real-time churn analysis.
-
-Implement data quality checks using Great Expectations or similar.
-
-Extend dashboard with predictive churn models using ML.
+Add real-time streaming using Kafka for live churn monitoring
+Enhance analysis with ML models to predict at-risk customers
+Implement data quality checks & alerts in Airflow DAGs
+Expand dashboards to include CLV and LTV metrics
