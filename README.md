@@ -63,7 +63,7 @@ Average customer usage over time
 !['DWH Architecture'](./Images/Churn_DWH_Diagram.png)
 
 
-7. ⚙️ ETL and Data Flow
+## 7. ⚙️ ETL and Data Flow
 
 Data Ingestion: fetch original dataset + synthetic Faker data
 Orchestration: Airflow DAGs to manage ETL workflow
@@ -72,13 +72,27 @@ Transformation: clean, transform, and prepare data using Spark
 Load: store transformed data in SQL Server (DWH)
 Visualization: create dashboards in Power BI
 
-8. 🧪 Data Validation and Quality
+## 8. 🧪 Data Validation and Quality
 
-Ensure no missing values
-Validate data types for all columns
-Enforce referential integrity between tables
+1-Checked the dataset for missing values and validated data types for all columns.
+2-Ensured referential integrity between tables.
 
-9. 📈 Dashboards and Reports
+Handling Missing Values:
+1-churn_category & churn_reason
+These columns had null values because some customers did not churn.
+Filled the missing values with "Not Churned" to clearly distinguish non-churned customers.
+
+2-internet_type
+Null values indicated that some customers did not subscribe to any internet service.
+Filled the missing values with "No Internet" to reflect this.
+
+3-offer
+Null values appeared for customers without any special offer.
+Filled the missing values with "No Offer" to clearly identify customers without promotions.
+
+After handling missing values, the dataset was clean, consistent, and ready for transformation in the ETL pipeline.
+
+## 9. 📈 Dashboards and Reports
 
 Power BI dashboards show:
 Monthly churn rate
@@ -89,7 +103,7 @@ Customers at risk of leaving
 !['Dashboard'](./Images/Dashboard.jpg)
 
 
-10. 🚀 How to Run the Project
+## 10. 🚀 How to Run the Project
 
 Clone the repository
 ```bash
@@ -115,7 +129,7 @@ Run ETL DAG via Airflow UI
 Verify data in HDFS → Spark → SQL Server
 Open Power BI and connect to SQL Server to visualize dashboards
 
-11. ✅ Future Improvements
+## 11. ✅ Future Improvements
 
 Add real-time streaming using Kafka for live churn monitoring
 Enhance analysis with ML models to predict at-risk customers
