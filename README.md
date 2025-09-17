@@ -2,6 +2,13 @@
 This project demonstrates a complete ETL pipeline for analyzing Telco Customer Churn.
 The pipeline covers data generation, orchestration, processing, storage, and visualization, showcasing a full Data Engineering workflow from raw data to actionable insights.
 
+👥 Additionally, a **Customer Segmentation (K-Means Clustering)** module was applied on the customer dimension to identify distinct customer groups:
+- Cluster 0 → Mid-age females, DSL, month-to-month contracts → High churn risk.
+- Cluster 1 → Older males, Fiber Optic, month-to-month → High-value but churn-prone.
+- Cluster 2 → Younger males, two-year contracts, no internet → Loyal but strong upsell opportunity.
+
+This extra analytical layer provides deeper **business insights** to support retention and upsell strategies.
+
 ## 📚 Contents
 
 1. 📌 Business Case
