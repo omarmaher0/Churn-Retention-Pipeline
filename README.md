@@ -38,7 +38,7 @@ Identify customers at risk of leaving and understand retention patterns to impro
 ## 4. 🧱 Data Pipeline Architecture
 
 
-!['Data Pipeline Architecture.png'](./Images/Pipeline.jpg)
+!['Data Pipeline Architecture.png'](./Images/new_Pipeline.jpg)
 
 ## 5. 🗄️ OLTP Database Description
 Tables for Raw/Transactional Data:
