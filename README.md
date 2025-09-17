@@ -14,7 +14,7 @@ The pipeline covers data generation, orchestration, processing, storage, and vis
 8. 🧪 Data Validation and Quality
 9. 📈 Dashboards and Reports
 10. 🚀 How to Run the Project
-11. ✅ Future Improvements
+11. 👥 Customer Segmentation & Insights
 
 ## 1. 📌 Business Case
 
@@ -122,9 +122,20 @@ Run ETL DAG via Airflow UI
 Verify data in HDFS → Spark → SQL Server
 Open Power BI and connect to SQL Server to visualize dashboards
 
-## 11. ✅ Future Improvements
+## 11. 👥 Customer Segmentation & Insights
 
-Add real-time streaming using Kafka for live churn monitoring
-Enhance analysis with ML models to predict at-risk customers
-Implement data quality checks & alerts in Airflow DAGs
-Expand dashboards to include CLV and LTV metrics
+Applied K-Means clustering on customer dimension data.
+Features used: Age, Gender, State, Married, Dependents, Device Protection Plan, Internet Service, Internet Type, Contract, Payment Method.
+Segmented customers into 3 main clusters:
+
+!['Customer_Profiles'](./Images/customer_profiles_infographic.png)
+
+Business Value:
+1. 🎯 Retention Strategy → Target Cluster 0 & 1 with long-term contract offers.
+2. 📈 Upsell Strategy → Target Cluster 2 with internet bundles.
+3. 💳 Payment Insights → Analyze contract/payment methods for churn risk.
+   
+### 🔗 Connect with me:
+
+[![LinkedIn](https://img.shields.io/badge/Omar%20Oun-LinkedIn-blue)](https://www.linkedin.com/in/omaroun/)
+
